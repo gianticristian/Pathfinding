@@ -13,11 +13,19 @@ public class Node : MonoBehaviour
     }
 
     [SerializeField]
-    private List<Node> neighbours;
+    private List<Node> neighbours = new List<Node>();
     public List<Node> Neighbours
     {
         get { return neighbours; }
     }
+
+    public enum Colors
+    {
+        red,
+        green,
+        white
+    }
+
 
 
 
@@ -54,9 +62,12 @@ public class Node : MonoBehaviour
             if (index.y > 0)
                 neighbours.Add(gridManager.Grid[index.x, index.y - 1]);
         }
+    }
+
+    public void ChangeColorNeighbours (Color _color)
+    {
+        foreach (Node node in neighbours)
+            node.GetComponent<Renderer>().material.color = _color;
         
-
-
-
     }
 }

@@ -5,7 +5,7 @@ using UnityEngine;
 public class GridManager : MonoBehaviour
 {
     [SerializeField]
-    private GameObject nodePrefab;
+    private GameObject nodePrefab = null;
     
     [SerializeField]
     private Vector2Int size;
@@ -34,7 +34,7 @@ public class GridManager : MonoBehaviour
         {
             for (int x = 0; x < size.x; x++)
             {
-                GameObject node = Instantiate(nodePrefab, Vector3.zero, Quaternion.identity);
+                GameObject node = Instantiate(nodePrefab, Vector3.zero, Quaternion.identity) as GameObject;
                 
                 node.transform.position = new Vector3(x * space, 0, y * space);
                 node.transform.parent = transform;
@@ -51,6 +51,24 @@ public class GridManager : MonoBehaviour
             {
                 grid[x, y].SearchNeighbours(this);
             }
+        }
+
+    }
+
+    void Update ()
+    {
+        if (Input.GetMouseButtonDown (0)) 
+        {    
+            var ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+            RaycastHit hit;
+ 
+            if (Physics.Raycast(ray, out hit, 100)) 
+            {
+                if(hit.collider.tag == "Node") 
+                {                         
+                    hit.collider.GetComponent<Node>().ChangeColorNeighbours(Color.black);  
+                }
+            }    
         }
 
     }
