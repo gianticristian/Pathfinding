@@ -17,15 +17,17 @@ public class GridManager : MonoBehaviour
     [SerializeField]
     private float space;
 
-    private List<Node> grid;
-    public List<Node> Grid 
+    private Node[,] grid;
+    public Node[,] Grid
     {
         get { return grid; }
     }
 
+
     void Awake ()
     {
-        grid = new List<Node>();
+        grid = new Node[size.x, size.y];
+
         space = nodePrefab.GetComponent<Renderer>().bounds.size.x * (1 + 0.2f);
 
         for (int y = 0; y < size.y; y++)
@@ -38,14 +40,18 @@ public class GridManager : MonoBehaviour
                 node.transform.parent = transform;
                 node.GetComponent<Node>().Index = new Vector2Int(x, y);
     
-                grid.Add(node.GetComponent<Node>());
-
+                grid[x, y] = node.GetComponent<Node>();
                 
             }
         }
 
-        foreach (Node node in grid)
-           node.SearchNeighbours(this);
+        for (int y = 0; y < size.y; y++)
+        {
+            for (int x = 0; x < size.x; x++)
+            {
+                grid[x, y].SearchNeighbours(this);
+            }
+        }
 
     }
 }

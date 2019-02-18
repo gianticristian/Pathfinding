@@ -17,24 +17,46 @@ public class Node : MonoBehaviour
     public List<Node> Neighbours
     {
         get { return neighbours; }
-        set { neighbours = value; }
     }
+
+
 
     public void SearchNeighbours (GridManager gridManager)
     {
-        for (int y = 0; y < 9; y++)
+        if (index.x < gridManager.Size.x && index.x < gridManager.Size.y)
         {
-            for (int x = 0; x < 9; x++)
+            // East
+            if (index.x < gridManager.Size.x - 1)
             {
-                if (index.x + x < gridManager.Size.x && index.y + y < gridManager.Size.y)
-                {
-                    //gridManager.Grid.Find(index.x)
-                }
-                
-                
+                neighbours.Add(gridManager.Grid[index.x + 1, index.y]);
+                // North-East
+                if (index.y < gridManager.Size.y -1)
+                    neighbours.Add(gridManager.Grid[index.x + 1, index.y + 1]);
+                // South-East
+                if (index.y > 0)
+                    neighbours.Add(gridManager.Grid[index.x + 1, index.y - 1]);
             }
+            // West
+            if (index.x > 0)
+            {
+                neighbours.Add(gridManager.Grid[index.x - 1, index.y]);
+                // North-West
+                if (index.y < gridManager.Size.y -1)
+                    neighbours.Add(gridManager.Grid[index.x - 1, index.y + 1]);
+                // South-West
+                if (index.y > 0)
+                    neighbours.Add(gridManager.Grid[index.x - 1, index.y - 1]);
+            }
+            // North
+            if (index.y < gridManager.Size.y - 1)
+                neighbours.Add(gridManager.Grid[index.x, index.y + 1]);
+            // South
+            if (index.y > 0)
+                neighbours.Add(gridManager.Grid[index.x, index.y - 1]);
         }
         
-    }
 
+
+
+    }
 }
