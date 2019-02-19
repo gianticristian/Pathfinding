@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 170076734}
-  m_IndirectSpecularColor: {r: 0.44657874, g: 0.49641258, b: 0.5748172, a: 1}
+  m_IndirectSpecularColor: {r: 0.44657868, g: 0.49641263, b: 0.57481706, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -288,9 +288,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 418ed45fff183f64d8b21aa96bb7f50f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  cameraMain: {fileID: 0}
-  speed: 10
-  rotationSpeed: 10
+  speed: 30
+  rotationSpeed: 30
 --- !u!1 &547906812
 GameObject:
   m_ObjectHideFlags: 0
@@ -348,6 +347,21 @@ PrefabInstance:
       propertyPath: m_Name
       value: GridManager
       objectReference: {fileID: 0}
+    - target: {fileID: 6989327567606993355, guid: 13ba3b437ca51c844ad11a2b99a5f0f9,
+        type: 3}
+      propertyPath: size.x
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 6989327567606993355, guid: 13ba3b437ca51c844ad11a2b99a5f0f9,
+        type: 3}
+      propertyPath: size.y
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 6989327567606993355, guid: 13ba3b437ca51c844ad11a2b99a5f0f9,
+        type: 3}
+      propertyPath: space
+      value: 0.2
+      objectReference: {fileID: 0}
     - target: {fileID: 6989327567606993354, guid: 13ba3b437ca51c844ad11a2b99a5f0f9,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -402,21 +416,6 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 6989327567606993355, guid: 13ba3b437ca51c844ad11a2b99a5f0f9,
-        type: 3}
-      propertyPath: size.x
-      value: 10
-      objectReference: {fileID: 0}
-    - target: {fileID: 6989327567606993355, guid: 13ba3b437ca51c844ad11a2b99a5f0f9,
-        type: 3}
-      propertyPath: size.y
-      value: 10
-      objectReference: {fileID: 0}
-    - target: {fileID: 6989327567606993355, guid: 13ba3b437ca51c844ad11a2b99a5f0f9,
-        type: 3}
-      propertyPath: space
-      value: 0.2
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 13ba3b437ca51c844ad11a2b99a5f0f9, type: 3}

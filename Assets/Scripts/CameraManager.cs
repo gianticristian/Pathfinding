@@ -4,7 +4,6 @@ using UnityEngine;
 
 public class CameraManager : MonoBehaviour
 {
-    [SerializeField]
     private Camera cameraMain;
 
     [SerializeField]
@@ -12,36 +11,65 @@ public class CameraManager : MonoBehaviour
     [SerializeField]
     private float rotationSpeed = 10;
 
-    private float moveHorizontal, moveVertical, rotation;
+    private float horizontalInput, verticalInput, rotationInput;
     
+
 
     void Awake ()
     {
-        cameraMain = Camera.main;
+        cameraMain = GetComponent<Camera>();
     }
 
     void Update ()
     {
-        moveHorizontal = Input.GetAxis("Horizontal");
-        moveVertical = Input.GetAxis("Vertical");
+        horizontalInput = Input.GetAxis("Horizontal");
+        verticalInput = Input.GetAxis("Vertical");
+        rotationInput = Input.GetAxis("Rotate");
 
         MoveCamera();
     }
 
     private void MoveCamera ()
     {
-        if (moveHorizontal != 0)
+        if (horizontalInput != 0)
         {
-            cameraMain.transform.Translate(Vector3.right * moveHorizontal * speed * Time.deltaTime, Space.World);
+            cameraMain.transform.Translate(Vector3.right * horizontalInput * speed * Time.deltaTime, Space.Self);
         }
-        if (moveVertical != 0)
+        if (verticalInput != 0)
         {
-            cameraMain.transform.Translate(0, 0, moveVertical * speed * Time.deltaTime, Space.World);
+            //cameraMain.transform.Translate(0, 0, verticalInput * speed * Time.deltaTime, Space.World);
+
+            Vector3 temp = transform.position;
+            transform.Translate(transform.forward * verticalInput * speed * Time.deltaTime, Space.World);
+            transform.position = new Vector3 (transform.position.x, temp.y, transform.position.z);
+
         }
-        //if (Input.GetAxis("Vertical"))
-        //{
-        //    camera.transform.Translate(Vector3.forward * rotationSpeed * Time.deltaTime);
-        //}
+        if (rotationInput != 0)
+        {
+            //camera.transform.Translate(Vector3.forward * rotationSpeed * Time.deltaTime);
+            //cameraMain.transform.Rotate(0, rotation * rotationSpeed * Time.deltaTime, 0);
+
+            
+            //Vector3 rotation = transform.eulerAngles;
+            //rotation.y += rotationInput * rotationSpeed * Time.deltaTime;
+            //transform.eulerAngles = rotation;
+
+            //cameraMain.transform.RotateAround(Vector3.zero, Vector3.up, rotationInput * rotationSpeed * Time.deltaTime); 
+
+
+            Ray ray = cameraMain.ViewportPointToRay(new Vector3(0.5f, 0, 0.5f));
+            RaycastHit hit;
+			if (Physics.Raycast(ray, out hit))
+			{
+		    	//transform.RotateAround(hit.point, Vector3.up, rotationInput * rotationSpeed * Time.deltaTime);
+                    print("I'm looking at " + hit.transform.name);
+               
+			}
+            else
+                   print("I'm looking at nothing!");
+            
+
+        }
 
     }
 }
