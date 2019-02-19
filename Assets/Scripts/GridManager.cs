@@ -23,8 +23,24 @@ public class GridManager : MonoBehaviour
         get { return grid; }
     }
 
+    [SerializeField]
+    private Node start;
+    public Node Start 
+    {
+        get { return start; }
+        set { start = value; }
+    }
 
-    void Awake ()
+    [SerializeField]
+    private Node end;
+    public Node End 
+    {
+        get { return start; }
+        set { end = value; }
+    }
+
+
+    public void CreateGrid ()
     {
         grid = new Node[size.x, size.y];
 
@@ -40,8 +56,7 @@ public class GridManager : MonoBehaviour
                 node.transform.parent = transform;
                 node.GetComponent<Node>().Index = new Vector2Int(x, y);
     
-                grid[x, y] = node.GetComponent<Node>();
-                
+                grid[x, y] = node.GetComponent<Node>();   
             }
         }
 
@@ -52,24 +67,13 @@ public class GridManager : MonoBehaviour
                 grid[x, y].SearchNeighbours(this);
             }
         }
-
     }
 
-    void Update ()
+    public void CalculateDistance ()
     {
-        if (Input.GetMouseButtonDown (0)) 
-        {    
-            var ray = Camera.main.ScreenPointToRay(Input.mousePosition);
-            RaycastHit hit;
- 
-            if (Physics.Raycast(ray, out hit, 100)) 
-            {
-                if(hit.collider.tag == "Node") 
-                {                         
-                    hit.collider.GetComponent<Node>().ChangeColorNeighbours(Color.black);  
-                }
-            }    
-        }
+        Vector2Int distance = new Vector2Int(start.Index.x - end.Index.x, start.Index.y - end.Index.y);
 
+        Debug.Log(distance);
     }
+
 }
