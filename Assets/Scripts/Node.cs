@@ -19,15 +19,30 @@ public class Node : MonoBehaviour
         get { return neighbours; }
     }
 
+    private int distance;
+    public int Distance 
+    {
+        get { return distance; }
+        set { distance = value; }
+    }
+
+    private bool available = true;
+    public bool Available
+    {
+        get { return available; }
+        set 
+        {
+            available = value; 
+            GetComponent<Renderer>().material.color = Color.gray;
+        } 
+    }
+
     public enum Colors
     {
         red,
         green,
         white
     }
-
-
-
 
     public void SearchNeighbours (GridManager gridManager)
     {

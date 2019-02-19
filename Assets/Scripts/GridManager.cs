@@ -71,9 +71,42 @@ public class GridManager : MonoBehaviour
 
     public void CalculateDistance ()
     {
-        Vector2Int distance = new Vector2Int(start.Index.x - end.Index.x, start.Index.y - end.Index.y);
+        Node selectedNode = grid[start.Index.x, start.Index.y].Neighbours[0];
+        selectedNode.Distance = Mathf.Abs(selectedNode.Index.x - end.Index.x) + Mathf.Abs(selectedNode.Index.y - end.Index.y);
 
-        Debug.Log(distance);
+        grid[selectedNode.Index.x + 2, selectedNode.Index.y].Available = false;
+
+
+        while (selectedNode != grid[end.Index.x, end.Index.y])
+        {
+            foreach(Node node in grid[selectedNode.Index.x, selectedNode.Index.y].Neighbours)
+            {
+                //if (!node.Available)
+                //    continue;
+
+               
+                selectedNode.GetComponent<Renderer>().material.color = Color.blue;
+                node.Distance = Mathf.Abs(node.Index.x - end.Index.x) + Mathf.Abs(node.Index.y - end.Index.y);
+                if (node.Distance <  selectedNode.Distance)
+                {
+                    //Debug.Log(node.Distance + " _ " + selectedNode.Distance);
+                    selectedNode = node;
+                    selectedNode.Distance = Mathf.Abs(selectedNode.Index.x - end.Index.x) + Mathf.Abs(selectedNode.Index.y - end.Index.y);
+                    
+                    if (!node.Available)
+                    {
+                        foreach (Node n in node.Neighbours)
+                            Debug.Log(n.Index);
+                    }
+                   
+                    
+
+                }
+            }
+            
+            
+        }
+
     }
 
 }
